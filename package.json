@@ -1,0 +1,33 @@
+{
+  "name": "kebabot",
+  "version": "1.0.0",
+  "main": "src/bot.ts",
+  "type": "module",
+  "scripts": {
+    "deploy:commands": "vite-node src/deploy-commands.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite-node --watch src/bot.ts -r ./src",
+    "start": "node dist/bot.js",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "discord.js": "^14.19.2",
+    "dotenv": "^16.5.0",
+    "mongodb": "^6.16.0",
+    "node-cron": "^3.0.3",
+    "openai": "^4.96.2",
+    "zod": "^3.24.3"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.15.3",
+    "@types/node-cron": "^3.0.11",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3",
+    "vite-node": "^3.1.2"
+  }
+}
