@@ -21,6 +21,10 @@ const envSchema = z.object({
   OPENAI_API_KEY: z.string({
     required_error: "OPENAI_API_KEY is required in .env file",
   }),
+  MONGODB_URI: z.string({
+    required_error: "MONGODB_URI is required in .env file",
+  }),
+  MONGODB_DATABASE_NAME: z.string().default("kebabot"),
 });
 
 const env = envSchema.parse(process.env);

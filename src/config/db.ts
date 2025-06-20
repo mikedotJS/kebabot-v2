@@ -4,9 +4,10 @@ import {
   ServerApiVersion,
   type Document,
 } from "mongodb";
+import env from "./env.js";
 
-const uri =
-  "mongodb+srv://mchlrmn:t5ddhChf73F2LGE9@cluster0.pf2zb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = env.MONGODB_URI;
+const databaseName = env.MONGODB_DATABASE_NAME;
 
 export const client = new MongoClient(uri, {
   serverApi: {
@@ -31,14 +32,13 @@ export async function queryCollection<T, U extends Document>(
       isConnected = true;
       console.log("[MongoDB] Client connected.");
     }
-    const db = client.db("kebabot");
+    const db = client.db(databaseName);
     const collection = db.collection<U>(collectionName);
     return await queryFn(collection);
   } catch (error) {
     console.error(`Failed to query collection \"${collectionName}\":`, error);
     throw error;
   }
-  // Do NOT close the client here!
 }
 
 // Graceful shutdown for MongoDB client
