@@ -6,8 +6,8 @@ import { getUserLevel } from "../features/contributions.js";
 
 export default {
   data: new SlashCommandBuilder()
-    .setName("contributions")
-    .setDescription("Show your contribution count."),
+    .setName("level")
+    .setDescription("Show your current level and XP progress."),
   async execute(interaction: ChatInputCommandInteraction) {
     await interaction.deferReply({ flags: "Ephemeral" });
 
@@ -15,7 +15,7 @@ export default {
     const expToNext = userLevel.nextLevelExp - userLevel.contributions;
     
     await interaction.editReply({
-      content: `You have contributed ${userLevel.contributions} messages and are **Level ${userLevel.level}**! (${expToNext} XP to next level)`,
+      content: `🎯 **Level ${userLevel.level}**\n📊 **XP**: ${userLevel.contributions}/${userLevel.nextLevelExp}\n🚀 **${expToNext} XP** to next level`,
     });
   },
 };

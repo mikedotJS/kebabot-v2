@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/michaelromain/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documents - MacBook Pro de Michaël (2)/projets/discord/kebabot-v2/src/commands/**)",
+      "Read(//Users/michaelromain/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documents - MacBook Pro de Michaël (2)/projets/discord/kebabot-v2/src/events/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

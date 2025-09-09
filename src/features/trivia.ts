@@ -2,6 +2,7 @@ import { TextChannel, Message, Collection } from "discord.js";
 import OpenAI from "openai";
 import env from "../config/env.js";
 import { queryCollection } from "../config/db.js";
+import { incrementContribution, getUserLevel } from "./contributions.js";
 const client = new OpenAI({ apiKey: env.OPENAI_API_KEY });
 
 interface PlayerPointsDoc {
@@ -157,7 +158,7 @@ export async function isAnswerCorrectWithOpenAI(
         {
           role: "system",
           content:
-            "You are an expert trivia judge. Given a question, the correct answer, and a user's answer, reply with only 'yes' if the user's answer is correct, or 'no' if it is not. Accept close matches, minor typos, singular/plural variations, and missing or extra articles (like 'the', 'a', 'an') as correct. Do not explain.",
+            "You are an expert trivia judge. Given a question, the correct answer, and a user's answer, reply with only 'yes' if the user's answer is correct, or 'no' if it is not. Be lenient and accept: minor typos, spelling errors, singular/plural variations, missing or extra articles (the, a, an), abbreviations, synonyms, alternative names, partial answers that capture the essence, and phonetically similar words. Focus on whether the user demonstrates knowledge of the correct answer rather than exact word matching. Do not explain your decision.",
         },
         {
           role: "user",
@@ -193,9 +194,17 @@ export async function handleTriviaAnswer(message: Message): Promise<void> {
   );
   if (isCorrect) {
     const newPoints = await incrementPlayerPoints(message.author.id);
-    await message.reply(
-      `✅ Correct, ${message.author.username}! You now have ${newPoints} point(s).`
-    );
+    const levelUpResult = await incrementContribution(message.author.id, message.client);
+    const userLevel = await getUserLevel(message.author.id);
+    const expToNext = userLevel.nextLevelExp - userLevel.contributions;
+    
+    let response = `✅ Correct, ${message.author.username}! You now have ${newPoints} trivia point(s) and are level ${userLevel.level} (${expToNext} XP to next level).`;
+    
+    if (levelUpResult.leveledUp) {
+      response += `\n\n🎉 **LEVEL UP!** You just reached Level ${levelUpResult.newLevel}! 🎉`;
+    }
+    
+    await message.reply(response);
     // Clear current question so it can't be answered again
     currentQuestion.question = "";
     currentQuestion.answer = "";

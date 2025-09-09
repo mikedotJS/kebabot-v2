@@ -2,7 +2,7 @@ import {
   type ChatInputCommandInteraction,
   SlashCommandBuilder,
 } from "discord.js";
-import { getLeaderboard } from "../features/contributions.js";
+import { getLeaderboard, calculateLevel } from "../features/contributions.js";
 
 export default {
   data: new SlashCommandBuilder()
@@ -22,7 +22,8 @@ export default {
       const lines = await Promise.all(
         leaderboard.map(async ({ userId, count }, i) => {
           const user = await interaction.client.users.fetch(userId);
-          return `${i + 1}. ${user.tag}: ${count}`;
+          const level = calculateLevel(count);
+          return `${i + 1}. ${user.tag}: ${count} XP (Level ${level})`;
         })
       );
       await interaction.editReply(`Top contributors:\n${lines.join("\n")}`);
