@@ -194,7 +194,10 @@ export async function handleTriviaAnswer(message: Message): Promise<void> {
   );
   if (isCorrect) {
     const newPoints = await incrementPlayerPoints(message.author.id);
-    const levelUpResult = await incrementContribution(message.author.id, message.client);
+    const levelUpResult = await incrementContribution(message.author.id, message.client, { 
+      type: 'message', 
+      messageChannel: message.channel as any 
+    });
     const userLevel = await getUserLevel(message.author.id);
     const expToNext = userLevel.nextLevelExp - userLevel.contributions;
     

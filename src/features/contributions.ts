@@ -7,7 +7,7 @@ interface ContributionDoc {
   count: number;
 }
 
-export async function incrementContribution(userId: string, client?: Client): Promise<{
+export async function incrementContribution(userId: string, client?: Client, context?: { type: 'message' | 'voice', channelId?: string, messageChannel?: TextChannel }): Promise<{
   leveledUp: boolean;
   newLevel: number;
   previousLevel: number;
@@ -31,7 +31,7 @@ export async function incrementContribution(userId: string, client?: Client): Pr
   const leveledUp = newLevel > previousLevel;
   
   if (leveledUp && client) {
-    await sendLevelUpNotification(client, userId, newLevel);
+    await sendLevelUpNotification(client, userId, newLevel, context);
   }
   
   return {
@@ -41,9 +41,24 @@ export async function incrementContribution(userId: string, client?: Client): Pr
   };
 }
 
-async function sendLevelUpNotification(client: Client, userId: string, newLevel: number): Promise<void> {
+async function sendLevelUpNotification(client: Client, userId: string, newLevel: number, context?: { type: 'message' | 'voice', channelId?: string, messageChannel?: TextChannel }): Promise<void> {
   try {
-    const channel = await client.channels.fetch(env.WEEKLY_ANNOUNCEMENTS_CHANNEL_ID) as TextChannel;
+    let channel: TextChannel;
+    
+    if (context?.type === 'message' && context.messageChannel) {
+      channel = context.messageChannel;
+    } else if (context?.type === 'voice' && context.channelId) {
+      const voiceChannel = await client.channels.fetch(context.channelId);
+      if (voiceChannel && 'guild' in voiceChannel && voiceChannel.guild) {
+        const textChannels = voiceChannel.guild.channels.cache.filter(ch => ch.type === 0 && ch.name.includes('general'));
+        channel = textChannels.first() as TextChannel || await client.channels.fetch(env.WEEKLY_ANNOUNCEMENTS_CHANNEL_ID) as TextChannel;
+      } else {
+        channel = await client.channels.fetch(env.WEEKLY_ANNOUNCEMENTS_CHANNEL_ID) as TextChannel;
+      }
+    } else {
+      channel = await client.channels.fetch(env.WEEKLY_ANNOUNCEMENTS_CHANNEL_ID) as TextChannel;
+    }
+    
     const user = await client.users.fetch(userId);
     
     await channel.send(`🎉 **Level Up!** 🎉\n\n**${user.username}** just reached **Level ${newLevel}**! 🚀\n\nKeep up the great contributions! 💪`);

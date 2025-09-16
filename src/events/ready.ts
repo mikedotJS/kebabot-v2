@@ -1,5 +1,5 @@
 import { type Client, Events } from "discord.js";
-import { initSchedulers } from "../scheduler";
+import { initSchedulers } from "../scheduler/index.js";
 
 export default {
   name: Events.ClientReady,

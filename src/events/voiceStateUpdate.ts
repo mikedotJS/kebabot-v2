@@ -21,7 +21,10 @@ export default {
       console.log(
         `[VoiceStateUpdate] ${newState.id} joined ${newState.channelId}`
       );
-      await incrementContribution(newState.id);
+      await incrementContribution(newState.id, client, { 
+        type: 'voice', 
+        channelId: newState.channelId || undefined 
+      });
     }
   },
 };

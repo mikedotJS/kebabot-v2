@@ -16,7 +16,10 @@ export default {
   ) {
     if (message.author.bot) return;
 
-    await incrementContribution(message.author.id, client);
+    await incrementContribution(message.author.id, client, { 
+      type: 'message', 
+      messageChannel: message.channel as any
+    });
 
     await handleTriviaAnswer(message);
 
