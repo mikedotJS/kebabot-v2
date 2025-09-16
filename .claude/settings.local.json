@@ -4,7 +4,8 @@
       "Read(//Users/michaelromain/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documents - MacBook Pro de Michaël (2)/projets/discord/kebabot-v2/src/commands/**)",
       "Read(//Users/michaelromain/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documents - MacBook Pro de Michaël (2)/projets/discord/kebabot-v2/src/events/**)",
       "Read(//Users/michaelromain/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documents - MacBook Pro de Michaël (2)/projets/discord/kebabot-v2/**)",
-      "Read(//Users/michaelromain/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documents - MacBook Pro de Michaël (2)/projets/discord/kebabot-v2/src/features/**)"
+      "Read(//Users/michaelromain/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documents - MacBook Pro de Michaël (2)/projets/discord/kebabot-v2/src/features/**)",
+      "Bash(npm run build:*)"
     ],
     "deny": [],
     "ask": []

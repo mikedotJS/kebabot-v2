@@ -72,6 +72,16 @@ Kebabot est un assistant Discord spécialement conçu pour **Call of Cthulhu 7è
 /character backstory      # Éditer l'histoire du personnage
 ```
 
+### 🎭 Outils du Maître de Jeu
+```
+/dm npc                   # Générer un PNJ avec statistiques
+/dm roll                  # Effectuer un jet de dé caché ou visible
+/dm sanity                # Appliquer une perte de folie de masse
+/dm weather               # Générer des conditions météorologiques
+/dm chase                 # Initialiser une séquence de poursuite
+/dm encounter             # Générer une rencontre aléatoire
+```
+
 ---
 
 ## Création de Personnage
@@ -252,6 +262,9 @@ Sévérité: Major
 - Utiliser les commandes slash
 - Gérer les embeds
 
+#### Configuration du Rôle MJ
+Pour utiliser les commandes `/dm`, les utilisateurs doivent avoir le rôle **DM** sur le serveur. Le nom du rôle peut être configuré dans le code source si nécessaire.
+
 ### Gestion des Personnages
 
 #### Création Assistée
@@ -281,6 +294,62 @@ db.coc_characters.updateOne(
 - Surveillez les conditions de folie
 
 ### Outils MJ Avancés
+
+#### Génération de PNJ
+```
+/dm npc type:cultist name:"Marcel Dubois" description:"Un membre dévoué de la secte"
+/dm npc type:investigator name:"Detective Martin"
+/dm npc type:custom name:"Gardien"
+```
+
+**Types disponibles :**
+- **Cultist** : Cultiste avec compétences occultes
+- **Investigator** : Enquêteur avec compétences d'investigation
+- **Monster** : Créature avec statistiques de combat
+- **Custom** : PNJ avec caractéristiques aléatoirement générées
+
+#### Jets de Dés MJ
+```
+/dm roll dice:"1d100" description:"Test de Spot Hidden du PNJ"
+/dm roll dice:"2d6+3" hidden:true
+```
+
+**Options :**
+- `hidden:true` : Le résultat n'est visible que par le MJ
+- `description` : Contexte du jet de dé
+
+#### Perte de Folie de Masse
+```
+/dm sanity severity:major description:"Apparition d'un Shoggoth"
+```
+
+Annonce l'événement à tous les joueurs qui doivent ensuite utiliser `/sanity` individuellement.
+
+#### Génération de Météo
+```
+/dm weather season:autumn     # Météo d'automne
+/dm weather                   # Saison aléatoire
+```
+
+#### Séquences de Poursuite
+```
+/dm chase type:vehicle participants:4
+/dm chase type:foot participants:3
+```
+
+**Types :**
+- **Vehicle** : Poursuite en véhicule (Compétence : Conduite)
+- **Foot** : Poursuite à pied (Compétence : Athlétisme/CON)
+- **Boat** : Poursuite en bateau (Compétence : Pilotage Bateau)
+
+#### Rencontres Aléatoires
+```
+/dm encounter location:urban
+/dm encounter location:cemetery
+```
+
+**Lieux disponibles :**
+- Urban, Rural, Wilderness, Library, Hospital, Cemetery
 
 #### Suivi des Conditions
 Le bot suit automatiquement :
@@ -329,9 +398,29 @@ Bot: ❌ ÉCHEC! Perte de 1d4 (3) points de folie.
 Joueur: /coc occult
 Bot: ✨ RÉUSSITE DIFFICILE! Vous reconnaissez le symbole.
 
-MJ: /sanity extreme description:"Vision de Cthulhu"
+MJ: /dm sanity severity:extreme description:"Vision de Cthulhu"
+Bot: 🧠 Les joueurs témoins de cette scène doivent utiliser:
+     /sanity extreme Vision de Cthulhu
+
+Joueur: /sanity extreme description:"Vision de Cthulhu"
 Bot: 💀 FUMBLE! Perte de 1d20 (18) points de folie.
 Bot: ⚠️ FOLIE TEMPORAIRE! (Perte de 18 points en un test)
+```
+
+**Exemple d'utilisation des outils MJ :**
+```
+MJ: /dm npc type:cultist name:"Frère Antoine" description:"Garde du temple"
+Bot: 👤 Frère Antoine généré avec statistiques complètes
+
+MJ: /dm roll dice:"1d100" description:"Jet de Spot Hidden de Frère Antoine" hidden:true
+Bot: 🔒 🎲 DM Roll: Jet de Spot Hidden de Frère Antoine
+     Result: 43 (Ce jet est caché des joueurs)
+
+MJ: /dm weather season:autumn
+Bot: 🌤️ Conditions météorologiques générées
+
+MJ: /dm chase type:foot participants:3
+Bot: 🏃 Séquence de poursuite à pied initialisée
 ```
 
 ### Conseils pour les MJs

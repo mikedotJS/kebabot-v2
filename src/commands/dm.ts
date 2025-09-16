@@ -297,7 +297,7 @@ async function handleNPCGeneration(interaction: ChatInputCommandInteraction) {
       },
       hitPoints: 0,
       skills: {},
-      description
+      description: description || undefined
     };
   } else {
     const template = NPC_TEMPLATES[type];
@@ -307,7 +307,7 @@ async function handleNPCGeneration(interaction: ChatInputCommandInteraction) {
       hitPoints: 0,
       skills: template.skills!,
       weapons: template.weapons,
-      description
+      description: description || undefined
     };
   }
 
