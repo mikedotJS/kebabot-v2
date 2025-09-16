@@ -9,6 +9,7 @@ import {
 import type { CommandModule } from "../types.js";
 import { queryCollection } from "../config/db.js";
 import type { CoCCharacter } from "../features/coc-characters.js";
+import { handleDMModalSubmit } from "./dmModalHandler.js";
 
 export default {
   name: Events.InteractionCreate,
@@ -48,6 +49,8 @@ export default {
     if (interaction.isModalSubmit()) {
       if (interaction.customId === "character_backstory") {
         await handleBackstoryModalSubmit(interaction);
+      } else if (interaction.customId.startsWith("create_npc_") || interaction.customId.startsWith("create_encounter_")) {
+        await handleDMModalSubmit(interaction);
       }
     }
   },
