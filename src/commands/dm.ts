@@ -329,6 +329,46 @@ export default {
             .setDescription("Encounter name")
             .setRequired(true)
         )
+    )
+    .addSubcommand(subcommand =>
+      subcommand
+        .setName("npc-roll")
+        .setDescription("Roll dice for an NPC using their stats")
+        .addStringOption(option =>
+          option
+            .setName("npc")
+            .setDescription("NPC name")
+            .setRequired(true)
+        )
+        .addStringOption(option =>
+          option
+            .setName("skill")
+            .setDescription("Skill or characteristic to roll against")
+            .setRequired(true)
+        )
+        .addStringOption(option =>
+          option
+            .setName("difficulty")
+            .setDescription("Difficulty level")
+            .setRequired(false)
+            .addChoices(
+              { name: "Normal", value: "normal" },
+              { name: "Hard", value: "hard" },
+              { name: "Extreme", value: "extreme" }
+            )
+        )
+        .addStringOption(option =>
+          option
+            .setName("description")
+            .setDescription("Description of what the NPC is attempting")
+            .setRequired(false)
+        )
+        .addBooleanOption(option =>
+          option
+            .setName("hidden")
+            .setDescription("Hide the roll from players")
+            .setRequired(false)
+        )
     ),
 
   async execute(interaction: ChatInputCommandInteraction) {
@@ -392,6 +432,9 @@ export default {
         break;
       case "spawn-encounter":
         await handleSpawnEncounter(interaction);
+        break;
+      case "npc-roll":
+        await handleNPCRoll(interaction);
         break;
     }
   },
@@ -768,49 +811,54 @@ async function handleCreateCustomNPC(interaction: ChatInputCommandInteraction) {
     return;
   }
 
-  // Create modal for NPC creation
+  // Create modal for characteristics (step 1 of 2)
   const modal = new ModalBuilder()
-    .setCustomId(`create_npc_${npcName}`)
-    .setTitle(`Create NPC: ${npcName}`);
+    .setCustomId(`create_npc_step1_${npcName}`)
+    .setTitle(`Create NPC: ${npcName} - Step 1/2`);
 
-  // Characteristics input
-  const characteristicsInput = new TextInputBuilder()
-    .setCustomId('characteristics')
-    .setLabel('Characteristics (STR,DEX,INT,CON,APP,POW,SIZ,EDU)')
+  // Individual characteristic inputs
+  const strInput = new TextInputBuilder()
+    .setCustomId('STR')
+    .setLabel('Strength (STR)')
     .setStyle(TextInputStyle.Short)
-    .setPlaceholder('50,60,70,55,45,65,60,75')
+    .setPlaceholder('50')
     .setRequired(true);
 
-  // Skills input
-  const skillsInput = new TextInputBuilder()
-    .setCustomId('skills')
-    .setLabel('Skills (skill:value,skill:value...)')
-    .setStyle(TextInputStyle.Paragraph)
-    .setPlaceholder('spot hidden:65,psychology:50,fighting (brawl):45')
-    .setRequired(false);
+  const dexInput = new TextInputBuilder()
+    .setCustomId('DEX')
+    .setLabel('Dexterity (DEX)')
+    .setStyle(TextInputStyle.Short)
+    .setPlaceholder('60')
+    .setRequired(true);
 
-  // Public description
-  const descriptionInput = new TextInputBuilder()
-    .setCustomId('description')
-    .setLabel('Public Description (visible to players)')
-    .setStyle(TextInputStyle.Paragraph)
-    .setPlaceholder('A mysterious figure in dark robes...')
-    .setRequired(false);
+  const intInput = new TextInputBuilder()
+    .setCustomId('INT')
+    .setLabel('Intelligence (INT)')
+    .setStyle(TextInputStyle.Short)
+    .setPlaceholder('70')
+    .setRequired(true);
 
-  // Private notes
-  const privateNotesInput = new TextInputBuilder()
-    .setCustomId('private_notes')
-    .setLabel('Private Notes (DM only)')
-    .setStyle(TextInputStyle.Paragraph)
-    .setPlaceholder('Secret motivations, hidden abilities, plot hooks...')
-    .setRequired(false);
+  const conInput = new TextInputBuilder()
+    .setCustomId('CON')
+    .setLabel('Constitution (CON)')
+    .setStyle(TextInputStyle.Short)
+    .setPlaceholder('65')
+    .setRequired(true);
 
-  const firstRow = new ActionRowBuilder<TextInputBuilder>().addComponents(characteristicsInput);
-  const secondRow = new ActionRowBuilder<TextInputBuilder>().addComponents(skillsInput);
-  const thirdRow = new ActionRowBuilder<TextInputBuilder>().addComponents(descriptionInput);
-  const fourthRow = new ActionRowBuilder<TextInputBuilder>().addComponents(privateNotesInput);
+  const appInput = new TextInputBuilder()
+    .setCustomId('APP')
+    .setLabel('Appearance (APP)')
+    .setStyle(TextInputStyle.Short)
+    .setPlaceholder('55')
+    .setRequired(true);
 
-  modal.addComponents(firstRow, secondRow, thirdRow, fourthRow);
+  const firstRow = new ActionRowBuilder<TextInputBuilder>().addComponents(strInput);
+  const secondRow = new ActionRowBuilder<TextInputBuilder>().addComponents(dexInput);
+  const thirdRow = new ActionRowBuilder<TextInputBuilder>().addComponents(intInput);
+  const fourthRow = new ActionRowBuilder<TextInputBuilder>().addComponents(conInput);
+  const fifthRow = new ActionRowBuilder<TextInputBuilder>().addComponents(appInput);
+
+  modal.addComponents(firstRow, secondRow, thirdRow, fourthRow, fifthRow);
 
   await interaction.showModal(modal);
 }
@@ -875,36 +923,13 @@ async function handleShowNPC(interaction: ChatInputCommandInteraction) {
   const sanity = npc.characteristics.POW;
   const damageBonus = calculateDamageBonus(npc.characteristics.STR, npc.characteristics.SIZ);
 
-  // Public embed for players
+  // Public embed for players - only name and description
   const publicEmbed = new EmbedBuilder()
     .setColor(0x8b0000)
     .setTitle(`👤 ${npc.name}`)
     .setDescription(npc.description || "A mysterious individual...")
-    .addFields(
-      {
-        name: "Basic Information",
-        value: `❤️ HP: ${hp} | 🧠 Sanity: ${sanity} | 💪 DB: ${damageBonus}`,
-        inline: false,
-      }
-    )
     .setFooter({ text: "NPC Information" })
     .setTimestamp();
-
-  // Add notable skills if any
-  if (npc.skills && Object.keys(npc.skills).length > 0) {
-    const notableSkills = Object.entries(npc.skills)
-      .filter(([, value]) => (value as number) >= 50) // Only show skills 50%+
-      .map(([skill, value]) => `${skill}: ${value}%`)
-      .join(", ");
-
-    if (notableSkills) {
-      publicEmbed.addFields({
-        name: "Notable Skills",
-        value: notableSkills,
-        inline: false,
-      });
-    }
-  }
 
   // Private embed for DM
   const privateEmbed = new EmbedBuilder()
@@ -912,8 +937,13 @@ async function handleShowNPC(interaction: ChatInputCommandInteraction) {
     .setTitle(`🔒 DM Notes - ${npc.name}`)
     .addFields(
       {
-        name: "Full Characteristics",
+        name: "Characteristics",
         value: `STR: ${npc.characteristics.STR} | DEX: ${npc.characteristics.DEX} | INT: ${npc.characteristics.INT} | CON: ${npc.characteristics.CON}\nAPP: ${npc.characteristics.APP} | POW: ${npc.characteristics.POW} | SIZ: ${npc.characteristics.SIZ} | EDU: ${npc.characteristics.EDU}`,
+        inline: false,
+      },
+      {
+        name: "Derived Attributes",
+        value: `❤️ HP: ${hp} | 🧠 Sanity: ${sanity} | 💪 DB: ${damageBonus}`,
         inline: false,
       }
     );
@@ -988,7 +1018,7 @@ async function handleCreateCustomEncounter(interaction: ChatInputCommandInteract
   // Public description
   const descriptionInput = new TextInputBuilder()
     .setCustomId('description')
-    .setLabel('Public Description (visible to players)')
+    .setLabel('Public Description')
     .setStyle(TextInputStyle.Paragraph)
     .setPlaceholder('What the players see and experience...')
     .setRequired(true);
@@ -999,6 +1029,14 @@ async function handleCreateCustomEncounter(interaction: ChatInputCommandInteract
     .setLabel('Requirements/Skill Checks')
     .setStyle(TextInputStyle.Paragraph)
     .setPlaceholder('Spot Hidden 50+, Psychology Hard, Fighting (Brawl)...')
+    .setRequired(false);
+
+  // Rewards input
+  const rewardsInput = new TextInputBuilder()
+    .setCustomId('rewards')
+    .setLabel('Rewards & Outcomes')
+    .setStyle(TextInputStyle.Paragraph)
+    .setPlaceholder('Experience points, clues, items, money, or story outcomes...')
     .setRequired(false);
 
   // Private notes
@@ -1012,9 +1050,10 @@ async function handleCreateCustomEncounter(interaction: ChatInputCommandInteract
   const firstRow = new ActionRowBuilder<TextInputBuilder>().addComponents(locationInput);
   const secondRow = new ActionRowBuilder<TextInputBuilder>().addComponents(descriptionInput);
   const thirdRow = new ActionRowBuilder<TextInputBuilder>().addComponents(requirementsInput);
-  const fourthRow = new ActionRowBuilder<TextInputBuilder>().addComponents(privateNotesInput);
+  const fourthRow = new ActionRowBuilder<TextInputBuilder>().addComponents(rewardsInput);
+  const fifthRow = new ActionRowBuilder<TextInputBuilder>().addComponents(privateNotesInput);
 
-  modal.addComponents(firstRow, secondRow, thirdRow, fourthRow);
+  modal.addComponents(firstRow, secondRow, thirdRow, fourthRow, fifthRow);
 
   await interaction.showModal(modal);
 }
@@ -1073,34 +1112,34 @@ async function handleSpawnEncounter(interaction: ChatInputCommandInteraction) {
     return;
   }
 
-  // Public embed for players
+  // Public embed for players - only name and description
   const publicEmbed = new EmbedBuilder()
     .setColor(0x6a5acd)
     .setTitle(`🎭 ${encounter.name}`)
     .setDescription(encounter.description)
+    .setFooter({ text: "Encounter in Progress" })
+    .setTimestamp();
+
+  // Private embed for DM
+  const privateEmbed = new EmbedBuilder()
+    .setColor(0x4a4a4a)
+    .setTitle(`🔒 DM Notes - ${encounter.name}`)
+    .setDescription("Private information for this encounter:")
     .addFields(
       {
         name: "📍 Location",
         value: encounter.location,
         inline: false,
       }
-    )
-    .setFooter({ text: "Encounter in Progress" })
-    .setTimestamp();
+    );
 
   if (encounter.requirements) {
-    publicEmbed.addFields({
-      name: "🎲 Possible Actions",
+    privateEmbed.addFields({
+      name: "🎲 Requirements/Skill Checks",
       value: encounter.requirements,
       inline: false,
     });
   }
-
-  // Private embed for DM
-  const privateEmbed = new EmbedBuilder()
-    .setColor(0x4a4a4a)
-    .setTitle(`🔒 DM Notes - ${encounter.name}`)
-    .setDescription("Private information for this encounter:");
 
   if (encounter.privateNotes) {
     privateEmbed.addFields({
@@ -1130,4 +1169,126 @@ async function handleSpawnEncounter(interaction: ChatInputCommandInteraction) {
   } catch (error) {
     console.error("Error sending DM private info:", error);
   }
+}
+
+async function handleNPCRoll(interaction: ChatInputCommandInteraction) {
+  const npcName = interaction.options.getString("npc", true);
+  const skillName = interaction.options.getString("skill", true);
+  const difficulty = interaction.options.getString("difficulty") || "normal";
+  const description = interaction.options.getString("description");
+  const hidden = interaction.options.getBoolean("hidden") ?? true; // Default to hidden
+
+  await interaction.deferReply({ ephemeral: hidden });
+
+  // Find the NPC
+  const npc = await queryCollection("dm_npcs", async (collection) => {
+    return await collection.findOne({
+      guildId: interaction.guildId!,
+      name: { $regex: new RegExp(`^${npcName}$`, 'i') }
+    });
+  });
+
+  if (!npc) {
+    await interaction.editReply({
+      content: `❌ No NPC named "${npcName}" found. Use \`/dm list-npcs\` to see available NPCs.`
+    });
+    return;
+  }
+
+  // Find the skill or characteristic value
+  let targetValue: number | undefined;
+  let rollType = "";
+
+  // Check characteristics first (case-insensitive)
+  const characteristicKeys = Object.keys(npc.characteristics);
+  const matchedCharacteristic = characteristicKeys.find(key =>
+    key.toLowerCase() === skillName.toLowerCase()
+  );
+
+  if (matchedCharacteristic) {
+    targetValue = npc.characteristics[matchedCharacteristic as keyof typeof npc.characteristics];
+    rollType = "characteristic";
+  } else {
+    // Check skills (case-insensitive)
+    const skillKeys = Object.keys(npc.skills || {});
+    const matchedSkill = skillKeys.find(key =>
+      key.toLowerCase() === skillName.toLowerCase()
+    );
+
+    if (matchedSkill) {
+      targetValue = npc.skills[matchedSkill];
+      rollType = "skill";
+    }
+  }
+
+  if (targetValue === undefined) {
+    // List available skills and characteristics for help
+    const availableCharacteristics = Object.keys(npc.characteristics).join(", ");
+    const availableSkills = Object.keys(npc.skills || {}).join(", ");
+
+    await interaction.editReply({
+      content: `❌ "${skillName}" not found for ${npc.name}.\n\n**Available characteristics:** ${availableCharacteristics}\n**Available skills:** ${availableSkills || "None"}`
+    });
+    return;
+  }
+
+  // Apply difficulty modifiers
+  let adjustedTarget = targetValue;
+  let difficultyText = "";
+
+  switch (difficulty) {
+    case "hard":
+      adjustedTarget = Math.floor(targetValue / 2);
+      difficultyText = " (Hard)";
+      break;
+    case "extreme":
+      adjustedTarget = Math.floor(targetValue / 5);
+      difficultyText = " (Extreme)";
+      break;
+    case "normal":
+    default:
+      adjustedTarget = targetValue;
+      difficultyText = "";
+      break;
+  }
+
+  // Make the roll
+  const result = DiceRoller.rollCoCSkill(adjustedTarget);
+
+  // Format the result
+  let output = `🎲 **${npc.name} - ${skillName}${difficultyText}**\n`;
+  if (description) {
+    output += `*${description}*\n\n`;
+  }
+
+  output += `**Target:** ${adjustedTarget}% | **Rolled:** ${result.total}\n\n`;
+
+  if (result.success) {
+    if (result.extremeSuccess) {
+      output += "🌟 **EXTREME SUCCESS!** 🌟";
+    } else if (result.hardSuccess) {
+      output += "✨ **HARD SUCCESS!** ✨";
+    } else {
+      output += "✅ **SUCCESS!**";
+    }
+  } else {
+    if (result.fumble) {
+      output += "💀 **FUMBLE!** 💀";
+    } else {
+      output += "❌ **FAILURE**";
+    }
+  }
+
+  // Add context about what was rolled
+  output += `\n\n*${rollType === "characteristic" ? "Characteristic" : "Skill"}: ${skillName} (${targetValue}%)`;
+  if (difficulty !== "normal") {
+    output += ` → ${adjustedTarget}% after ${difficulty} difficulty`;
+  }
+  output += "*";
+
+  if (hidden) {
+    output = `🔒 ${output}\n\n*This roll is hidden from players*`;
+  }
+
+  await interaction.editReply({ content: output });
 }

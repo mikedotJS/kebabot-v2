@@ -5,11 +5,12 @@ import {
   Events,
   type Interaction,
   type ModalSubmitInteraction,
+  type ButtonInteraction,
 } from "discord.js";
 import type { CommandModule } from "../types.js";
 import { queryCollection } from "../config/db.js";
 import type { CoCCharacter } from "../features/coc-characters.js";
-import { handleDMModalSubmit } from "./dmModalHandler.js";
+import { handleDMModalSubmit, handleNPCStep2Button } from "./dmModalHandler.js";
 
 export default {
   name: Events.InteractionCreate,
@@ -51,6 +52,13 @@ export default {
         await handleBackstoryModalSubmit(interaction);
       } else if (interaction.customId.startsWith("create_npc_") || interaction.customId.startsWith("create_encounter_")) {
         await handleDMModalSubmit(interaction);
+      }
+    }
+
+    // Handle button interactions
+    if (interaction.isButton()) {
+      if (interaction.customId.startsWith("npc_step2_")) {
+        await handleNPCStep2Button(interaction);
       }
     }
   },
