@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Kebabot v2.0" />
+  <meta name="dcterms.date" content="2025-09-16" />
+  <title>Manuel Kebabot - Call of Cthulhu 7ème Édition</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Manuel Kebabot - Call of Cthulhu 7ème Édition</h1>
+<p class="author">Kebabot v2.0</p>
+<p class="date">2025-09-16</p>
+</header>
+<h1 id="manuel-kebabot---call-of-cthulhu-7ème-édition">🦑 Manuel Kebabot
+- Call of Cthulhu 7ème Édition</h1>
+<h2 id="table-des-matières">Table des Matières</h2>
+<ol type="1">
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#installation-et-configuration">Installation et
+Configuration</a></li>
+<li><a href="#commandes-de-base">Commandes de Base</a></li>
+<li><a href="#création-de-personnage">Création de Personnage</a></li>
+<li><a href="#système-de-dés">Système de Dés</a></li>
+<li><a href="#gestion-des-personnages">Gestion des Personnages</a></li>
+<li><a href="#système-de-folie">Système de Folie</a></li>
+<li><a href="#guide-du-mj">Guide du MJ</a></li>
+<li><a href="#exemples-de-parties">Exemples de Parties</a></li>
+<li><a href="#dépannage">Dépannage</a></li>
+</ol>
+<hr />
+<h2 id="introduction">Introduction</h2>
+<p>Kebabot est un assistant Discord spécialement conçu pour <strong>Call
+of Cthulhu 7ème Édition</strong>. Il gère automatiquement la création de
+personnages, les jets de dés, le suivi de la folie et bien plus
+encore.</p>
+<h3 id="fonctionnalités-principales">Fonctionnalités Principales</h3>
+<ul>
+<li>✅ Création de personnages conforme aux règles officielles</li>
+<li>✅ Système de dés complet (dés standards + CoC)</li>
+<li>✅ Suivi automatique de la folie et des conditions</li>
+<li>✅ Gestion des compétences et caractéristiques</li>
+<li>✅ Interface intuitive avec modales Discord</li>
+<li>✅ Base de données persistante</li>
+</ul>
+<hr />
+<h2 id="installation-et-configuration">Installation et
+Configuration</h2>
+<h3 id="pour-les-joueurs">Pour les Joueurs</h3>
+<ol type="1">
+<li>Invitez Kebabot sur votre serveur Discord</li>
+<li>Utilisez <code>/character create</code> pour créer votre premier
+personnage</li>
+<li>Commencez à jouer !</li>
+</ol>
+<h3 id="pour-les-mjs">Pour les MJs</h3>
+<ol type="1">
+<li>Configurez les permissions du bot</li>
+<li>Créez des canaux dédiés (général, rp, ooc)</li>
+<li>Familiarisez-vous avec les commandes de gestion</li>
+</ol>
+<hr />
+<h2 id="commandes-de-base">Commandes de Base</h2>
+<h3 id="jets-de-dés">🎲 Jets de Dés</h3>
+<h4 id="dés-standards">Dés Standards</h4>
+<pre><code>/roll 1d20+5              # Dé à 20 faces avec bonus
+/roll 3d6                 # Trois dés à 6 faces
+/roll 4d6 drop lowest     # Quatre dés à 6, garde les 3 meilleurs
+/roll 1d20 advantage      # Jet avec avantage (D&amp;D)
+/d100                     # Dé percentile simple</code></pre>
+<h4 id="jets-call-of-cthulhu">Jets Call of Cthulhu</h4>
+<pre><code>/coc spot hidden          # Test de compétence (utilise votre valeur)
+/coc psychologie hard     # Test difficile (-20%)
+/luck                     # Test de chance (dépense 1 point)
+/sanity major             # Test de folie avec perte automatique</code></pre>
+<h3 id="gestion-de-personnage">👤 Gestion de Personnage</h3>
+<pre><code>/character create         # Créer un nouveau personnage
+/character show           # Afficher la fiche complète
+/character set            # Modifier une compétence
+/character backstory      # Éditer l&#39;histoire du personnage</code></pre>
+<hr />
+<h2 id="création-de-personnage">Création de Personnage</h2>
+<h3 id="étape-1-informations-de-base">Étape 1 : Informations de
+Base</h3>
+<pre><code>/character create name:Jean_Dupont occupation:Detective age:32 method:roll</code></pre>
+<p><strong>Paramètres :</strong> - <code>name</code> : Nom du personnage
+- <code>occupation</code> : Profession (ex: “Détective”, “Médecin”,
+“Journaliste”) - <code>age</code> : Âge (15-90 ans) -
+<code>method</code> : Méthode de génération - <code>roll</code> : 3d6×5
+pour chaque caractéristique (recommandé) - <code>pointbuy</code> :
+Répartition de 460 points - <code>manual</code> : Valeurs par défaut (à
+modifier ensuite)</p>
+<h3 id="étape-2-caractéristiques-générées">Étape 2 : Caractéristiques
+Générées</h3>
+<p>Le bot calcule automatiquement : - <strong>Caractéristiques</strong>
+: STR, DEX, INT, CON, APP, POW, SIZ, EDU - <strong>Attributs
+dérivés</strong> : PV, Folie, Chance, Points de Magie -
+<strong>Combat</strong> : Mouvement, Bonus de Dégâts, Constitution -
+<strong>Compétences</strong> : 40+ compétences avec valeurs par
+défaut</p>
+<h3 id="étape-3-personnalisation">Étape 3 : Personnalisation</h3>
+<h4 id="modifier-les-compétences">Modifier les Compétences</h4>
+<pre><code>/character set skill:&quot;spot hidden&quot; value:75
+/character set skill:&quot;psychologie&quot; value:60</code></pre>
+<h4 id="ajouter-lhistoire-du-personnage">Ajouter l’Histoire du
+Personnage</h4>
+<pre><code>/character backstory</code></pre>
+<p>Ouvre une modale avec 5 champs : - <strong>Description
+Personnelle</strong> : Apparence, manières - <strong>Idéologie &amp;
+Croyances</strong> : Ce qui motive le personnage - <strong>Personnes
+Importantes</strong> : Relations significatives - <strong>Lieux
+Significatifs</strong> : Endroits qui comptent - <strong>Objets
+Précieux</strong> : Possessions chères</p>
+<hr />
+<h2 id="système-de-dés">Système de Dés</h2>
+<h3 id="jets-de-compétence-coc">Jets de Compétence CoC</h3>
+<h4 id="niveaux-de-réussite">Niveaux de Réussite</h4>
+<ul>
+<li><strong>Réussite Extrême</strong> : ≤ 1/5 de la compétence (🌟)</li>
+<li><strong>Réussite Difficile</strong> : ≤ 1/2 de la compétence
+(✨)</li>
+<li><strong>Réussite Normale</strong> : ≤ compétence (✅)</li>
+<li><strong>Échec</strong> : &gt; compétence (❌)</li>
+<li><strong>Fumble</strong> : 96+ sur un échec (💀)</li>
+</ul>
+<h4 id="exemples">Exemples</h4>
+<pre><code>/coc spot hidden          # Test normal
+/coc psychologie hard     # Test difficile (÷2)
+/coc occult extreme       # Test extrême (÷5)</code></pre>
+<h3 id="système-de-chance">Système de Chance</h3>
+<pre><code>/luck                     # Test de chance (dépense 1 point sur succès)
+/luck spend:false         # Test sans dépenser de chance</code></pre>
+<p><strong>Règles :</strong> - Utilise la valeur actuelle de Chance -
+Dépense automatiquement 1 point sur succès - Aucune chance = impossible
+de faire le test</p>
+<hr />
+<h2 id="gestion-des-personnages">Gestion des Personnages</h2>
+<h3 id="affichage-de-la-fiche">Affichage de la Fiche</h3>
+<pre><code>/character show</code></pre>
+<p><strong>Affiche :</strong> - Caractéristiques et attributs dérivés -
+Compétences principales - Langues parlées - Équipement et armes - État
+de l’histoire personnelle - Conditions actuelles</p>
+<h3 id="modification-des-compétences">Modification des Compétences</h3>
+<h4 id="compétences-standard">Compétences Standard</h4>
+<pre><code>/character set skill:&quot;spot hidden&quot; value:80
+/character set skill:&quot;psychologie&quot; value:45
+/character set skill:&quot;bibliothèque&quot; value:70</code></pre>
+<h4 id="compétences-personnalisées">Compétences Personnalisées</h4>
+<pre><code>/character set skill:&quot;conduite moto&quot; value:30
+/character set skill:&quot;langue russe&quot; value:25</code></pre>
+<h3 id="gestion-de-léquipement">Gestion de l’Équipement</h3>
+<p>L’équipement peut être ajouté via l’interface de backstory ou
+directement en base de données par le MJ.</p>
+<hr />
+<h2 id="système-de-folie">Système de Folie</h2>
+<h3 id="tests-de-folie">Tests de Folie</h3>
+<pre><code>/sanity minor             # Perte : 0/1d4
+/sanity moderate          # Perte : 1d2/1d6
+/sanity major             # Perte : 1d4/1d8
+/sanity severe            # Perte : 1d6/1d10
+/sanity extreme           # Perte : 1d10/1d20</code></pre>
+<h3 id="calcul-automatique">Calcul Automatique</h3>
+<ul>
+<li><strong>Succès</strong> : Perte réduite</li>
+<li><strong>Échec</strong> : Perte complète</li>
+<li><strong>Succès Extrême</strong> : Aucune perte (selon les
+règles)</li>
+</ul>
+<h3 id="conditions-de-folie">Conditions de Folie</h3>
+<h4 id="folie-temporaire">Folie Temporaire</h4>
+<ul>
+<li><strong>Déclencheur</strong> : Perte de 5+ points de folie en un
+test</li>
+<li><strong>Effet</strong> : Ajout automatique de la condition</li>
+<li><strong>Durée</strong> : 1d10 heures</li>
+</ul>
+<h4 id="folie-indéfinie">Folie Indéfinie</h4>
+<ul>
+<li><strong>Déclencheur</strong> : Folie ≤ 1/5 de la folie de
+départ</li>
+<li><strong>Effet</strong> : Condition permanente</li>
+<li><strong>Récupération</strong> : Thérapie ou temps</li>
+</ul>
+<h3 id="exemple-de-test">Exemple de Test</h3>
+<pre><code>/sanity major description:&quot;Rencontre avec un Shoggoth&quot;</code></pre>
+<p><strong>Résultat possible :</strong></p>
+<pre><code>🧠 Jean Dupont - Test de Folie
+*Rencontre avec un Shoggoth*
+
+Folie Actuelle: 65 | Jeté: 23
+Sévérité: Major
+
+✅ SUCCÈS!
+
+💔 Folie Perdue: 1d4 (2) = 2 points
+🧠 Nouvelle Folie: 63/99</code></pre>
+<hr />
+<h2 id="guide-du-mj">Guide du MJ</h2>
+<h3 id="configuration-du-serveur">Configuration du Serveur</h3>
+<h4 id="canaux-recommandés">Canaux Recommandés</h4>
+<ul>
+<li><code>#général</code> : Discussions OOC</li>
+<li><code>#rôleplay</code> : Actions des personnages</li>
+<li><code>#ooc</code> : Questions et clarifications</li>
+<li><code>#journal</code> : Notes de partie</li>
+</ul>
+<h4 id="permissions-du-bot">Permissions du Bot</h4>
+<ul>
+<li>Lire les messages</li>
+<li>Envoyer des messages</li>
+<li>Utiliser les commandes slash</li>
+<li>Gérer les embeds</li>
+</ul>
+<h3 id="gestion-des-personnages-1">Gestion des Personnages</h3>
+<h4 id="création-assistée">Création Assistée</h4>
+<ol type="1">
+<li>Guidez les joueurs pour <code>/character create</code></li>
+<li>Vérifiez les compétences de profession</li>
+<li>Ajustez si nécessaire avec <code>/character set</code></li>
+</ol>
+<h4 id="modifications-mj">Modifications MJ</h4>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Exemple de modification directe en base</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>db<span class="op">.</span><span class="at">coc_characters</span><span class="op">.</span><span class="fu">updateOne</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  { <span class="dt">userId</span><span class="op">:</span> <span class="st">&quot;123456789&quot;</span> }<span class="op">,</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  { <span class="dt">$set</span><span class="op">:</span> { <span class="st">&quot;skills.cthulhu mythos&quot;</span><span class="op">:</span> <span class="dv">5</span> } }</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<h3 id="gestion-des-tests">Gestion des Tests</h3>
+<h4 id="tests-de-compétence">Tests de Compétence</h4>
+<ul>
+<li>Laissez les joueurs utiliser <code>/coc [compétence]</code></li>
+<li>Intervenez pour les difficultés spéciales</li>
+<li>Utilisez les modificateurs de difficulté</li>
+</ul>
+<h4 id="tests-de-folie-1">Tests de Folie</h4>
+<ul>
+<li>Utilisez <code>/sanity [sévérité]</code> pour les événements</li>
+<li>Ajoutez des descriptions pour l’immersion</li>
+<li>Surveillez les conditions de folie</li>
+</ul>
+<h3 id="outils-mj-avancés">Outils MJ Avancés</h3>
+<h4 id="suivi-des-conditions">Suivi des Conditions</h4>
+<p>Le bot suit automatiquement : - Folie temporaire/indéfinie -
+Blessures - Phobies et manies - Conditions spéciales</p>
+<h4 id="gestion-des-équipements">Gestion des Équipements</h4>
+<ul>
+<li>Armes avec dégâts et portée</li>
+<li>Armures et protection</li>
+<li>Objets magiques</li>
+<li>Livres et tomes</li>
+</ul>
+<hr />
+<h2 id="exemples-de-parties">Exemples de Parties</h2>
+<h3 id="scénario-lappel-de-cthulhu">Scénario : “L’Appel de Cthulhu”</h3>
+<h4 id="préparation">Préparation</h4>
+<ol type="1">
+<li><p><strong>Création des personnages</strong> (30 min)</p>
+<pre><code>/character create name:Inspector_Legrasse occupation:Detective age:45
+/character create name:Dr_Thurston occupation:Anthropologue age:38</code></pre></li>
+<li><p><strong>Configuration initiale</strong></p>
+<ul>
+<li>Ajustement des compétences de profession</li>
+<li>Ajout d’équipement de base</li>
+<li>Écriture des histoires personnelles</li>
+</ul></li>
+</ol>
+<h4 id="déroulement-de-la-partie">Déroulement de la Partie</h4>
+<p><strong>Scène 1 : L’Enquête</strong></p>
+<pre><code>Joueur: /coc spot hidden
+Bot: ✅ SUCCÈS! Vous trouvez des traces de boue étrange.
+
+MJ: /sanity minor description:&quot;Découverte d&#39;un cadavre mutilé&quot;
+Bot: ❌ ÉCHEC! Perte de 1d4 (3) points de folie.</code></pre>
+<p><strong>Scène 2 : La Confrontation</strong></p>
+<pre><code>Joueur: /coc occult
+Bot: ✨ RÉUSSITE DIFFICILE! Vous reconnaissez le symbole.
+
+MJ: /sanity extreme description:&quot;Vision de Cthulhu&quot;
+Bot: 💀 FUMBLE! Perte de 1d20 (18) points de folie.
+Bot: ⚠️ FOLIE TEMPORAIRE! (Perte de 18 points en un test)</code></pre>
+<h3 id="conseils-pour-les-mjs">Conseils pour les MJs</h3>
+<h4 id="rythme-de-la-partie">Rythme de la Partie</h4>
+<ul>
+<li>Utilisez les tests de folie avec parcimonie</li>
+<li>Variez les difficultés des tests</li>
+<li>Encouragez l’utilisation de la chance</li>
+</ul>
+<h4 id="immersion">Immersion</h4>
+<ul>
+<li>Ajoutez des descriptions aux tests de folie</li>
+<li>Utilisez les histoires personnelles des joueurs</li>
+<li>Intégrez les conditions de folie dans le récit</li>
+</ul>
+<hr />
+<h2 id="dépannage">Dépannage</h2>
+<h3 id="problèmes-courants">Problèmes Courants</h3>
+<h4 id="vous-navez-pas-encore-de-personnage">“Vous n’avez pas encore de
+personnage”</h4>
+<p><strong>Solution :</strong> Utilisez <code>/character create</code>
+pour en créer un.</p>
+<h4 id="compétence-non-trouvée">“Compétence non trouvée”</h4>
+<p><strong>Solutions :</strong> - Vérifiez l’orthographe - Utilisez des
+variantes (ex: “spot” pour “spot hidden”) - Ajoutez la compétence avec
+<code>/character set</code></p>
+<h4 id="erreur-de-dés">“Erreur de dés”</h4>
+<p><strong>Solutions :</strong> - Vérifiez la syntaxe (ex:
+<code>1d20+5</code>, pas <code>1d20 + 5</code>) - Utilisez des notations
+simples - Consultez les exemples ci-dessus</p>
+<h3 id="commandes-de-diagnostic">Commandes de Diagnostic</h3>
+<h4 id="vérification-du-personnage">Vérification du Personnage</h4>
+<pre><code>/character show</code></pre>
+<p>Affiche toutes les informations du personnage.</p>
+<h4 id="test-de-connexion">Test de Connexion</h4>
+<pre><code>/ping</code></pre>
+<p>Vérifie que le bot fonctionne.</p>
+<h3 id="support">Support</h3>
+<h4 id="logs-derreur">Logs d’Erreur</h4>
+<p>En cas de problème, vérifiez : 1. Les permissions du bot 2. La
+syntaxe des commandes 3. L’existence du personnage</p>
+<h4 id="contact">Contact</h4>
+<p>Pour les bugs ou suggestions, contactez l’administrateur du
+serveur.</p>
+<hr />
+<h2 id="annexes">Annexes</h2>
+<h3 id="a.-liste-des-compétences-coc">A. Liste des Compétences CoC</h3>
+<h4 id="compétences-dinvestigation">Compétences d’Investigation</h4>
+<ul>
+<li>Accounting (Comptabilité)</li>
+<li>Anthropology (Anthropologie)</li>
+<li>Appraise (Évaluation)</li>
+<li>Archaeology (Archéologie)</li>
+<li>Art/Craft (Art/Artisanat)</li>
+<li>Charm (Charme)</li>
+<li>Climb (Escalade)</li>
+<li>Credit Rating (Cote de Crédit)</li>
+<li>Cthulhu Mythos (Mythe de Cthulhu)</li>
+<li>Disguise (Déguisement)</li>
+<li>Dodge (Esquive)</li>
+<li>Drive Auto (Conduite)</li>
+<li>Electrical Repair (Réparation Électrique)</li>
+<li>Fast Talk (Baratin)</li>
+<li>Fighting (Brawl) (Combat à Mains Nues)</li>
+<li>Firearms (Handgun) (Armes à Feu - Pistolet)</li>
+<li>Firearms (Rifle/Shotgun) (Armes à Feu - Fusil)</li>
+<li>First Aid (Premiers Secours)</li>
+<li>History (Histoire)</li>
+<li>Intimidate (Intimidation)</li>
+<li>Jump (Saut)</li>
+<li>Language (Other) (Langue Étrangère)</li>
+<li>Language (Own) (Langue Maternelle)</li>
+<li>Law (Droit)</li>
+<li>Library Use (Bibliothèque)</li>
+<li>Listen (Écoute)</li>
+<li>Locksmith (Serrurerie)</li>
+<li>Mechanical Repair (Réparation Mécanique)</li>
+<li>Medicine (Médecine)</li>
+<li>Natural World (Monde Naturel)</li>
+<li>Navigate (Navigation)</li>
+<li>Occult (Occultisme)</li>
+<li>Operate Heavy Machinery (Machines Lourdes)</li>
+<li>Persuade (Persuasion)</li>
+<li>Pilot (Pilotage)</li>
+<li>Psychology (Psychologie)</li>
+<li>Psychoanalysis (Psychanalyse)</li>
+<li>Ride (Équitation)</li>
+<li>Science (Science)</li>
+<li>Sleight of Hand (Escamotage)</li>
+<li>Spot Hidden (Observation)</li>
+<li>Stealth (Discrétion)</li>
+<li>Survival (Survie)</li>
+<li>Swim (Natation)</li>
+<li>Throw (Lancer)</li>
+<li>Track (Pistage)</li>
+</ul>
+<h3 id="b.-table-des-bonus-de-dégâts">B. Table des Bonus de Dégâts</h3>
+<table>
+<thead>
+<tr>
+<th>STR + SIZ</th>
+<th>Bonus de Dégâts</th>
+<th>Constitution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2-64</td>
+<td>-2</td>
+<td>-2</td>
+</tr>
+<tr>
+<td>65-84</td>
+<td>-1</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>85-124</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>125-164</td>
+<td>+1d4</td>
+<td>+1</td>
+</tr>
+<tr>
+<td>165-204</td>
+<td>+1d6</td>
+<td>+2</td>
+</tr>
+<tr>
+<td>205-284</td>
+<td>+2d6</td>
+<td>+3</td>
+</tr>
+<tr>
+<td>285-364</td>
+<td>+3d6</td>
+<td>+4</td>
+</tr>
+<tr>
+<td>365-444</td>
+<td>+4d6</td>
+<td>+5</td>
+</tr>
+</tbody>
+</table>
+<h3 id="c.-table-de-mouvement">C. Table de Mouvement</h3>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Mouvement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STR &lt; SIZ et DEX &lt; SIZ</td>
+<td>7</td>
+</tr>
+<tr>
+<td>STR ≥ SIZ ou DEX ≥ SIZ</td>
+<td>8</td>
+</tr>
+<tr>
+<td>STR &gt; SIZ et DEX &gt; SIZ</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>Kebabot v2.0 - Assistant Call of Cthulhu 7ème
+Édition</strong> <em>Développé avec ❤️ pour la communauté
+francophone</em></p>
+<hr />
+<p><em>Ce manuel est fourni à titre informatif. Les règles officielles
+de Call of Cthulhu 7ème Édition restent la référence ultime.</em></p>
+</body>
+</html>
